@@ -3,6 +3,7 @@
 # - Print out largest n transactions of all accounts, or for a given account
 
 from abc import ABC, abstractmethod
+import heapq
 
 # Logger class
 class Logger:
@@ -48,7 +49,8 @@ class Logger:
             for transaction in transactions:
                 all_transactions.append((account_id, transaction))
         
-        top_n_transactions = sorted(all_transactions, key=lambda x:x[1]['Amount'], reverse=True)[:n]
+        # top_n_transactions = sorted(all_transactions, key=lambda x:x[1]['Amount'], reverse=True)[:n]
+        top_n_transactions = heapq.nlargest(n, all_transactions, key=lambda x:x[1]['Amount'])
         return top_n_transactions
     
     # find largest transction for an account
